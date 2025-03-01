@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - GeCoLab</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #2D3748;
+            line-height: 1.6;
+            background-color: #F8F9FA;
+        }
+
+        /* Navbar styles */
+        nav {
+            background-color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            height: 70px;
+            z-index: 1000;
+        }
+
+        .logo {
+            height: 42px;
+        }
+
+        .logo img {
+            height: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2D3748;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            padding: 0.5rem 0.75rem;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+    
+        .nav-links a:hover {
+            color: #4CAF50;
+        }
+    
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 50%;
+            background-color: #4CAF50;
+            transition: width 0.3s ease;
+            transform: translateX(-50%);
+        }
+    
+        .nav-links a:hover::after {
+            width: 60%;
+        }
+
+        .nav-links a.active {
+            color: #4CAF50;
+        }
+
+        .nav-links a.active::after {
+            width: 60%;
+        }
+
+        /* Contact Page Styles */
+        .container {
+            max-width: 1200px;
+            margin: 120px auto 60px;
+            padding: 0 20px;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .contact-header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1E293B;
+        }
+
+        .contact-header p {
+            font-size: 1.1rem;
+            color: #64748B;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .info-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(76, 175, 80, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4CAF50;
+            font-size: 1.2rem;
+        }
+
+        .info-content h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .info-content p, .info-content a {
+            color: #64748B;
+            text-decoration: none;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .info-content a:hover {
+            color: #4CAF50;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #E2E8F0;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: #4CAF50;
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #3e9142;
+        }
+
+        .map-container {
+            margin-top: 60px;
+            width: 100%;
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* Pour une future implémentation de menu burger */
+            }
+            
+            .contact-content {
+                flex-direction: column;
+            }
+            
+            .contact-form, .contact-info {
+                width: 100%;
+            }
+            
+            .contact-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="../assets/img/logo.png" alt="GeCoLab Logo">
+        </div>
+        <div class="nav-links">
+            <a href="../index.html">Accueil</a>
+            <a href="./partenaire.html">Partenaires</a>
+            <a href="./services.html">Services</a>
+            <a href="./publications.html">Publications</a>
+            <a href="./equipe.html">Équipe</a>
+            <a href="./aPropos.html">À propos</a>
+            <a href="./contact.html" class="active">Contact</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="contact-header">
+            <h1>Contactez-nous</h1>
+            <p>Vous avez des questions ou souhaitez collaborer avec nous ? N'hésitez pas à nous contacter, nous serons ravis d'échanger avec vous.</p>
+        </div>
+
+        <div class="contact-content">
+            <div class="contact-form">
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name">Nom complet</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Adresse e-mail</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Sujet</label>
+                        <input type="text" id="subject" name="subject" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Envoyer le message</button>
+                </form>
+            </div>
+
+            <div class="contact-info">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Notre adresse</h3>
+                        <p>Laboratoire de génétique de la conservation
+                            Institut de Botanique (Bât. B22)
+                            <br>
+                            Quartier Vallée 1
+                            Chemin de la vallée 4
+                            <br>4000 Liège (Sart Tilman), Belgique</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Email</h3>
+                        <a href="mailto:contact.gecolab@gmail.com">contact.gecolab@gmail.comr</a>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Téléphone</h3>
+                        <a href="tel:+33123456789">+32 43 66 21 30</a>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Horaires d'ouverture</h3>
+                        <p>Lundi - Vendredi: 9h00 - 18h00<br>
+                        Fermé les weekends</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="map-container">
+            <!-- Remplacer par une vraie carte Google Maps avec votre API key -->
+            <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=2.2866058349609375%2C48.85233242579044%2C2.364044189453125%2C48.87036372568417&amp;layer=mapnik"></iframe>
+        </div>
+    </div>
+</body>
+</html>
