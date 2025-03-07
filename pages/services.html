@@ -1,112 +1,24 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GeCoLab</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-
-        nav {
-            background-color: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            height: 70px;
-            z-index: 1000;
-        }
-
-        .logo {
-            height: 42px;
-        }
-
-        .logo img {
-            height: 100%;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #2D3748;
-            font-size: 14px;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-            padding: 0.5rem 0.75rem;
-            border-radius: 3px;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-    
-        .nav-links a:hover {
-            color: #4CAF50;
-        }
-    
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 50%;
-            background-color: #4CAF50;
-            transition: width 0.3s ease;
-            transform: translateX(-50%);
-        }
-    
-        .nav-links a:hover::after {
-            width: 60%;
-        }
-
-        /* Style pour l'élément actif */
-        .nav-links a.active {
-            color: #4CAF50;
-        }
-
-        .nav-links a.active::after {
-            width: 60%;
-        }
-
-        /* Media query pour les écrans mobiles */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none; /* Pour une future implémentation de menu burger */
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../style/footer.css">
+    <link rel="stylesheet" href="../style/navbar.css">
+    <script src="../components/Navbar.js"></script>
+    <script src="../components/Footer.js"></script>
 </head>
+
 <body>
-    <nav>
-        <div class="logo">
-            <img src="./assets/img/logo.png" alt="GeCoLab Logo">
-        </div>
-        <div class="nav-links">
-            <a href="../index.html" class="active">Accueil</a>
-            <a href="partenaire.html">Partenaires</a>
-            <a href="services.html">Services</a>
-            <a href="publications.html">Publications</a>
-            <a href="equipe.html">Équipe</a>
-            <a href="aPropos.html">À propos</a>
-            <a href="contact.html">Contact</a>
-        </div>
-    </nav>
+    <nav-bar></nav-bar>
+
+    <main>
+
+    </main>
+
+    <footer-bar></footer-bar>
 </body>
+
 </html>

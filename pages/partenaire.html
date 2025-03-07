@@ -1,112 +1,196 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GeCoLab</title>
+    <title>GeCoLab - Partenaires</title>
+    <link rel="stylesheet" href="../style/footer.css">
+    <link rel="stylesheet" href="../style/navbar.css">
+    <link rel="stylesheet" href="../style/partenaire.css">
+    <script src="../components/Navbar.js"></script>
+    <script src="../components/Footer.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-
-        nav {
-            background-color: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            height: 70px;
-            z-index: 1000;
-        }
-
-        .logo {
-            height: 42px;
-        }
-
-        .logo img {
-            height: 100%;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #2D3748;
-            font-size: 14px;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-            padding: 0.5rem 0.75rem;
-            border-radius: 3px;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-    
-        .nav-links a:hover {
-            color: #4CAF50;
-        }
-    
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 50%;
-            background-color: #4CAF50;
-            transition: width 0.3s ease;
-            transform: translateX(-50%);
-        }
-    
-        .nav-links a:hover::after {
-            width: 60%;
-        }
-
-        /* Style pour l'élément actif */
-        .nav-links a.active {
-            color: #4CAF50;
-        }
-
-        .nav-links a.active::after {
-            width: 60%;
-        }
-
-        /* Media query pour les écrans mobiles */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none; /* Pour une future implémentation de menu burger */
-            }
-        }
+        
     </style>
 </head>
+
 <body>
-    <nav>
-        <div class="logo">
-            <img src="./assets/img/logo.png" alt="GeCoLab Logo">
+    <nav-bar></nav-bar>
+
+    <section class="partenaires-section">
+        <h2 class="partenaires-title">Nos Partenaires</h2>
+        <p class="partenaires-subtitle">Découvrez les organisations qui collaborent avec GeCoLab pour faire avancer la
+            recherche et l'innovation.</p>
+
+        <div class="bulles-container" id="bulles-container">
+            <!-- Les bulles seront générées par JavaScript -->
         </div>
-        <div class="nav-links">
-            <a href="../index.html" class="active">Accueil</a>
-            <a href="partenaire.html">Partenaires</a>
-            <a href="services.html">Services</a>
-            <a href="publications.html">Publications</a>
-            <a href="equipe.html">Équipe</a>
-            <a href="aPropos.html">À propos</a>
-            <a href="contact.html">Contact</a>
-        </div>
-    </nav>
+    </section>
+
+    <script>
+        // Liste des partenaires avec leur nom et logo
+        const partenaires = [
+            { name: "Aquascop", logo: "../assets/img/icone/Aquascop.jpg" },
+            { name: "Biotope", logo: "../assets/img/icone/biotope.png" },
+            { name: "WWF", logo: "../assets/img/icone/wwf.jpg" },
+            { name: "Ecosphere", logo: "../assets/img/icone/ecosphere.jpg" },
+            { name: "CIRAD", logo: "../assets/img/icone/" },
+            { name: "INRAE", logo: "../assets/img/icone/" },
+            { name: "Région Occitanie", logo: "../assets/img/icone/" },
+            { name: "Montpellier Métropole", logo: "../assets/img/icone/" },
+            { name: "MUSE", logo: "../assets/img/icone/" },
+            { name: "CHU Montpellier", logo: "../assets/img/icone/" }
+        ];
+
+        // Fonction pour générer une taille aléatoire pour les bulles (entre min et max)
+        function randomSize(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Fonction pour vérifier si une nouvelle bulle chevauche les bulles existantes
+        function checkCollision(newBulle, existingBulles, containerWidth, containerHeight) {
+            const newX = parseFloat(newBulle.style.left);
+            const newY = parseFloat(newBulle.style.top);
+            const newSize = parseFloat(newBulle.style.width);
+            const buffer = 10; // Espace minimum entre les bulles
+
+            // Vérification des bords du conteneur
+            if (newX < 0 || newX + newSize > containerWidth ||
+                newY < 0 || newY + newSize > containerHeight) {
+                return true;
+            }
+
+            // Vérification des collisions avec les bulles existantes
+            for (const bulle of existingBulles) {
+                const bulleX = parseFloat(bulle.style.left);
+                const bulleY = parseFloat(bulle.style.top);
+                const bulleSize = parseFloat(bulle.style.width);
+
+                const dx = newX - bulleX;
+                const dy = newY - bulleY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < (newSize / 2 + bulleSize / 2 + buffer)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        // Fonction pour créer les bulles de partenaires
+        function createBulles() {
+            const container = document.getElementById('bulles-container');
+            const containerWidth = container.clientWidth;
+            const containerHeight = container.clientHeight;
+            const existingBulles = [];
+
+            // Créer une bulle pour chaque partenaire
+            partenaires.forEach(partenaire => {
+                const size = randomSize(100, 180);
+                const bulle = document.createElement('div');
+                bulle.className = 'bulle';
+
+                // Générer une position aléatoire
+                let posX, posY;
+                let collision = true;
+                let attempts = 0;
+                const maxAttempts = 50;
+
+                // Essayer de trouver une position sans collision
+                while (collision && attempts < maxAttempts) {
+                    posX = Math.random() * (containerWidth - size);
+                    posY = Math.random() * (containerHeight - size);
+
+                    bulle.style.left = posX + 'px';
+                    bulle.style.top = posY + 'px';
+                    bulle.style.width = size + 'px';
+                    bulle.style.height = size + 'px';
+
+                    collision = checkCollision(bulle, existingBulles, containerWidth, containerHeight);
+                    attempts++;
+                }
+
+                // Si trop d'essais sans succès, placer la bulle à une position fixe
+                if (attempts >= maxAttempts) {
+                    const index = existingBulles.length;
+                    const row = Math.floor(index / 3);
+                    const col = index % 3;
+                    posX = (containerWidth / 3) * col + (containerWidth / 6) - (size / 2);
+                    posY = (containerHeight / 4) * row + (containerHeight / 8) - (size / 2);
+
+                    bulle.style.left = posX + 'px';
+                    bulle.style.top = posY + 'px';
+                }
+
+                // Ajouter le logo et le nom du partenaire
+                const img = document.createElement('img');
+                img.src = partenaire.logo;
+                img.alt = partenaire.name;
+
+                const partenaireNameElem = document.createElement('div');
+                partenaireNameElem.className = 'partenaire-name';
+                partenaireNameElem.textContent = partenaire.name;
+
+                bulle.appendChild(img);
+                bulle.appendChild(partenaireNameElem);
+                container.appendChild(bulle);
+                existingBulles.push(bulle);
+
+                // Ajouter une animation de flottement
+                animateBulle(bulle);
+            });
+        }
+
+        // Fonction pour animer les bulles avec un mouvement flottant aléatoire
+        function animateBulle(bulle) {
+            const speed = 0.5 + Math.random() * 1.5;
+            const xAmplitude = 10 + Math.random() * 20;
+            const yAmplitude = 10 + Math.random() * 20;
+            const xPhase = Math.random() * Math.PI * 2;
+            const yPhase = Math.random() * Math.PI * 2;
+
+            const initialX = parseFloat(bulle.style.left);
+            const initialY = parseFloat(bulle.style.top);
+
+            let time = 0;
+
+            function animate() {
+                time += 0.02;
+
+                const newX = initialX + Math.sin(time * speed + xPhase) * xAmplitude;
+                const newY = initialY + Math.sin(time * speed + yPhase) * yAmplitude;
+
+                bulle.style.left = newX + 'px';
+                bulle.style.top = newY + 'px';
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+        // Attendre que le DOM soit chargé
+        document.addEventListener('DOMContentLoaded', function () {
+            createBulles();
+
+            // Recréer les bulles si la fenêtre est redimensionnée
+            let resizeTimeout;
+            window.addEventListener('resize', function () {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(function () {
+                    const container = document.getElementById('bulles-container');
+                    while (container.firstChild) {
+                        container.removeChild(container.firstChild);
+                    }
+                    createBulles();
+                }, 250);
+            });
+        });
+    </script>
+
+    <footer-bar></footer-bar>
 </body>
+
 </html>
