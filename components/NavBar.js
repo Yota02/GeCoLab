@@ -7,12 +7,12 @@ class Navbar extends HTMLElement {
           </div>
           <div class="nav-links">
               <a href="../index.html" class="active">Accueil</a>
-              <a href="../pages/partenaire.html">Partenaires</a>
-              <a href="../pages/services.html">Services</a>
-              <a href="../pages/publications.html">Publications</a>
-              <a href="../pages/equipe.html">Équipe</a>
-              <a href="../pages/aPropos.html">À propos</a>
-              <a href="../pages/contact.html">Contact</a>
+              <a href="./partenaire.html">Partenaires</a>
+              <a href="./services.html">Services</a>
+              <a href="./publications.html">Publications</a>
+              <a href="./equipe.html">Équipe</a>
+              <a href="./aPropos.html">À propos</a>
+              <a href="./contact.html">Contact</a>
           </div>
       </nav>
       `;
