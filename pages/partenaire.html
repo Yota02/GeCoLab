@@ -10,6 +10,57 @@
     <link rel="stylesheet" href="../style/partenaire.css">
     <script src="../components/Navbar.js"></script>
     <script src="../components/Footer.js"></script>
+    <style>
+        /* Ajout de styles spécifiques pour les bulles */
+        .bulles-container {
+            position: relative;
+            width: 100%;
+            height: 800px; /* Conteneur plus grand */
+            margin: 50px auto;
+        }
+
+        .bulle {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: visible; /* Permet au contenu de déborder */
+            transition: transform 0.3s;
+        }
+
+        .bulle:hover {
+            transform: scale(1.05);
+            z-index: 10; /* S'assure que la bulle en survol est au-dessus des autres */
+        }
+
+        .bulle img {
+            max-width: 80%;
+            max-height: 70%;
+            object-fit: contain;
+        }
+
+        .partenaire-name {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 5px;
+            border-radius: 10px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* Centrage parfait par rapport à la bulle */
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -25px;
+            white-space: normal; /* Permettre le retour à la ligne */
+            word-wrap: break-word; /* Couper les mots longs */
+            max-width: 150%; /* Permettre plus d'espace pour les longs noms */
+        }
+    </style>
 </head>
 
 <body>
@@ -48,12 +99,18 @@
             { name: "Biotope", logo: "../assets/img/icone/biotope.png" },
             { name: "WWF", logo: "../assets/img/icone/wwf.jpg" },
             { name: "Ecosphere", logo: "../assets/img/icone/ecosphere.jpg" },
-            { name: "CIRAD", logo: "../assets/img/icone/defaut.webp" },
-            { name: "INRAE", logo: "../assets/img/icone/defaut.webp" },
-            { name: "Région Occitanie", logo: "../assets/img/icone/defaut.webp" },
-            { name: "Montpellier Métropole", logo: "../assets/img/icone/defaut.webp" },
-            { name: "MUSE", logo: "../assets/img/icone/defaut.webp" },
-            { name: "CHU Montpellier", logo: "../assets/img/icone/defaut.webp" }
+            { name: "Association naturaliste d'Ouessant", logo: "../assets/img/icone/ano.jpg" },
+            { name: "Karum", logo: "../assets/img/icone/karum.jpg" },
+            { name: "LPO", logo: "../assets/img/icone/lpo.gif" },
+            { name: "Conservatoire d'Espace Naturels", logo: "../assets/img/icone/conservatoire_despace_naturels.png" },
+            { name: "Féderation Aude Claire", logo: "../assets/img/icone/federation_aude_claire.jpg" },
+            { name: "Groute Mammalogique Normand", logo: "../assets/img/icone/gmn.png" },
+            { name: "Groute Mammalogique Breton", logo: "../assets/img/icone/gmb.jpg" },
+            { name: "Groute Mammalogique et Herpétologique", logo: "../assets/img/icone/gmhl.png" },
+            { name: "Nature en Occitanie", logo: "../assets/img/icone/nature_en_occitanie.png" },
+            { name: "Natagora", logo: "../assets/img/icone/natagora.png" },
+            { name: "Nymphalis", logo: "../assets/img/icone/nymphalis.jpg" },
+            { name: "Société d'Histoire Naturelle d'Autun", logo: "../assets/img/icone/shna.webp" }
         ];
 
         // Fonction pour générer une taille aléatoire pour les bulles (entre min et max)
@@ -66,11 +123,11 @@
             const newX = parseFloat(newBulle.style.left);
             const newY = parseFloat(newBulle.style.top);
             const newSize = parseFloat(newBulle.style.width);
-            const buffer = 10; // Espace minimum entre les bulles
+            const buffer = 60; // Espace plus grand entre les bulles pour éviter toute superposition
 
             // Vérification des bords du conteneur
             if (newX < 0 || newX + newSize > containerWidth ||
-                newY < 0 || newY + newSize > containerHeight) {
+                newY < 0 || newY + newSize > containerHeight - 50) { // Ajout d'une marge pour le texte en bas
                 return true;
             }
 
@@ -96,12 +153,12 @@
         function createBulles() {
             const container = document.getElementById('bulles-container');
             const containerWidth = container.clientWidth;
-            const containerHeight = container.clientHeight;
+            const containerHeight = container.clientHeight || 800; // Fallback si la hauteur n'est pas définie
             const existingBulles = [];
 
             // Créer une bulle pour chaque partenaire
             partenaires.forEach(partenaire => {
-                const size = randomSize(100, 180);
+                const size = randomSize(120, 200); // Taille des bulles
                 const bulle = document.createElement('div');
                 bulle.className = 'bulle';
 
@@ -109,13 +166,13 @@
                 let posX, posY;
                 let collision = true;
                 let attempts = 0;
-                const maxAttempts = 50;
+                const maxAttempts = 100; // Plus de tentatives pour éviter la superposition
 
                 // Essayer de trouver une position sans collision
                 while (collision && attempts < maxAttempts) {
                     posX = Math.random() * (containerWidth - size);
-                    posY = Math.random() * (containerHeight - size);
-
+                    posY = Math.random() * (containerHeight - size - 60); // Marge supplémentaire pour le texte
+                    
                     bulle.style.left = posX + 'px';
                     bulle.style.top = posY + 'px';
                     bulle.style.width = size + 'px';
@@ -128,10 +185,10 @@
                 // Si trop d'essais sans succès, placer la bulle à une position fixe
                 if (attempts >= maxAttempts) {
                     const index = existingBulles.length;
-                    const row = Math.floor(index / 3);
-                    const col = index % 3;
-                    posX = (containerWidth / 3) * col + (containerWidth / 6) - (size / 2);
-                    posY = (containerHeight / 4) * row + (containerHeight / 8) - (size / 2);
+                    const row = Math.floor(index / 4);
+                    const col = index % 4;
+                    posX = (containerWidth / 4) * col + (containerWidth / 8) - (size / 2);
+                    posY = (containerHeight / 5) * row + (containerHeight / 10) - (size / 2);
 
                     bulle.style.left = posX + 'px';
                     bulle.style.top = posY + 'px';
@@ -151,16 +208,16 @@
                 container.appendChild(bulle);
                 existingBulles.push(bulle);
 
-                // Ajouter une animation de flottement
+                // Ajouter une animation de flottement légère
                 animateBulle(bulle);
             });
         }
 
-        // Fonction pour animer les bulles avec un mouvement flottant aléatoire
+        // Fonction pour animer les bulles avec un mouvement flottant léger
         function animateBulle(bulle) {
-            const speed = 0.5 + Math.random() * 1.5;
-            const xAmplitude = 10 + Math.random() * 20;
-            const yAmplitude = 10 + Math.random() * 20;
+            const speed = 0.15 + Math.random() * 0.15; // Vitesse modérée
+            const xAmplitude = 5 + Math.random() * 5; // Amplitude légère
+            const yAmplitude = 5 + Math.random() * 5; // Amplitude légère
             const xPhase = Math.random() * Math.PI * 2;
             const yPhase = Math.random() * Math.PI * 2;
 
@@ -170,7 +227,7 @@
             let time = 0;
 
             function animate() {
-                time += 0.02;
+                time += 0.015; // Progression modérée
 
                 const newX = initialX + Math.sin(time * speed + xPhase) * xAmplitude;
                 const newY = initialY + Math.sin(time * speed + yPhase) * yAmplitude;
