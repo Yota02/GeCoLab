@@ -1,38 +1,424 @@
+-->
 <!DOCTYPE html>
 <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GeCoLab - Nos Services</title>
+        <link rel="stylesheet" href="../style/footer.css">
+        <link rel="stylesheet" href="../style/navbar.css">
+        <link rel="stylesheet" href="../style/index.css">
+        <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #2E7D32;
+            --text-color: #333;
+            --background-color: #f9f9f9;
+        }
+    
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+        }
+    
+        .services-container {
+            max-width: 1400px;
+            margin: 120px auto 60px;
+            padding: 0 30px;
+        }
+    
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 60px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+        }
+    
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+    
+        .service-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+    
+        .service-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent);
+        }
+    
+        .service-header h2 {
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+    
+        .service-content {
+            padding: 40px;
+        }
+    
+        .service-content h3 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin: 30px 0 20px;
+        }
+    
+        .service-content p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+    
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 30px 0;
+        }
+    
+        .image-grid img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: all 0.4s ease;
+            filter: brightness(0.95);
+        }
+    
+        .image-grid img:hover {
+            transform: scale(1.03);
+            filter: brightness(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+    
+        .contact-section {
+            text-align: center;
+            background: linear-gradient(135deg, #fff, #f5f5f5);
+            padding: 60px 40px;
+            border-radius: 20px;
+            margin-top: 60px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+    
+        .contact-section h3 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+    
+        .contact-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 18px 40px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
+        }
+    
+        .contact-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+        }
+    
+        @media (max-width: 968px) {
+            .image-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .service-header h2 {
+                font-size: 1.8rem;
+            }
+        }
+    
+        @media (max-width: 580px) {
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+    
+            .service-content {
+                padding: 25px;
+            }
+            
+            .service-header {
+                padding: 30px;
+            }
+        }
+    </style>
+    </head>
+    <body>
+        <nav>
+            <div class="logo">
+                <img src="./assets/img/logo.png" alt="GeCoLab Logo">
+            </div>
+            <div class="nav-links">
+                <a href="../index.html" class="active">Accueil</a>
+                <a href="partenaire.html">Partenaires</a>
+                <a href="services.html">Services</a>
+                <a href="publications.html">Publications</a>
+                <a href="equipe.html">Équipe</a>
+                <a href="aPropos.html">À propos</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </nav>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GeCoLab</title>
-    <link rel="stylesheet" href="../style/footer.css">
-    <link rel="stylesheet" href="../style/navbar.css">
-    <script src="../components/Navbar.js"></script>
-    <script src="../components/Footer.js"></script>
-</head>
+        <div class="services-container">
+            <div class="service-card">
+                <div class="service-header">
+                    <h2>Inventaire de biodiversité et identification
+                        d'espèces</h2>
+                </div>
+                <div class="service-content">
+                    <p class="service-intro">Vous souhaiteriez effectuer des
+                        inventaires faunistiques précis ou identifier la
+                        présence d'espèces menacées ou invasives sur un site
+                        donné ? Nous vous proposons divers outils génétiques
+                        pour répondre à vos questions.</p>
 
-<body>
-    <nav>
-        <div class="logo">
-            <img src="./assets/img/logo.png" alt="GeCoLab Logo">
+                    <p>Pour les inventaires faunistiques et biomonitorings,
+                        différentes techniques existent en fonction des
+                        organismes recherchés.</p>
+
+                    <h3>Milieux aquatiques</h3>
+                    <p>Pour les milieux aquatiques, la recherche de poissons,
+                        d'amphibiens, de mammifères aquatiques et semi
+                        aquatiques ou de macro invertébrés aquatiques est
+                        effectuée sur base de prélèvements d'eau à partir de
+                        capsules filtrantes et de pompes péristaltiques louées
+                        sur demande. Ces technologies permettent d'effectuer des
+                        inventaires extrêmement précis pour ces organismes,
+                        grâce notamment à nos bases de données de références
+                        privées.</p>
+                    <div class="image-grid">
+                        <img src="../assets/img/pompe.jpg"
+                            alt="Prélèvement aquatique" loading="lazy">
+                        <img src="../assets/img/labo1.jpg"
+                            alt="Analyse en laboratoire" loading="lazy">
+                        <img src="../assets/img/services/aquatique3.jpg"
+                            alt="Résultats d'analyse" loading="lazy">
+                    </div>
+
+                    <h3>Milieux terrestres</h3>
+                    <p>Pour les milieux terrestres, d'autres techniques de
+                        prélèvement sont également disponibles comme la récolte
+                        d'échantillons de sol, ou encore la collecte de poils,
+                        frottis, fèces, urine, salive grâce à une série de
+                        dispositifs non invasifs mis au point en collaboration
+                        avec nos collègues du GREGE (Groupe de Recherche et
+                        d'Etude pour la Gestion de l'Environnement).</p>
+                    <div class="image-grid">
+                        <img src="../assets/img/services/terrestre1.jpg"
+                            alt="Collecte terrestre" loading="lazy">
+                        <img src="../assets/img/services/terrestre2.jpg"
+                            alt="Analyse d'échantillons" loading="lazy">
+                        <img src="../assets/img/services/terrestre3.jpg"
+                            alt="Résultats" loading="lazy">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Recherche d'espèces -->
+            <div class="service-card">
+                <div class="service-header">
+                    <h2>Recherche d'espèces rares et menacées ou d'espèces
+                        invasives</h2>
+                </div>
+                <div class="service-content">
+                    <p>Grâce à nos approches de séquençage de dernière
+                        génération, de métabarcoding et de barcoding, nous vous
+                        proposons d'identifier la présence possible d'espèces
+                        d'intérêts.</p>
+                    <p>Ces espèces peuvent correspondre à des espèces
+                        patrimoniales et protégées (ex. desman des Pyrénées,
+                        vison d'Europe, crossope aquatique, campagnol amphibie,
+                        triton crêté, écrivesse à pattes blandes..) ou au
+                        contraire à des espèces invasives (ex. écrevisses
+                        américaines, castor canadien, vison d'Amérique,
+                        amphibiens invasifs…).</p>
+                </div>
+            </div>
+
+            <!-- Section 3: Régime alimentaire -->
+            <div class="service-card">
+                <div class="service-header">
+                    <h2>Régime alimentaire</h2>
+                </div>
+                <div class="service-content">
+                    <p class="service-intro">Vous désirez connaitre le régime
+                        alimentaire d'une espèce sur un territoire donné afin de
+                        mieux comprendre son intérêt pour la régulation
+                        d'espèces proies potentiellement négatives pour l'homme
+                        ? Vous désirez connaitre le régime alimentaire d'une
+                        espèce menacée afin de mieux connaitre sa biologie et
+                        mettre en place les meilleures mesures de gestion pour
+                        celle-ci ? Vous désirez étudier l'impact d'une espèce
+                        invasive sur la biodiversité de nos régions ?</p>
+
+                    <p>Nous vous proposons d'effectuer des analyses de régime
+                        alimentaire précises à partir de fèces collectées de
+                        manière non invasive, via l'utilisation des techniques
+                        de séquençage nouvelle génération et d'approches de
+                        métabarcoding.</p>
+
+                    <p>Ce type d'étude a été développé par notre équipe sur de
+                        nombreuses espèces de mammifères : loutre européenne,
+                        loup européen, sanglier, vison d'Europe, vison
+                        d'Amérique, mangouste de Java, de nombreuses espèces de
+                        chauves-souris (oreillards, murins, pipistrelles..)…</p>
+
+                    <div class="image-grid">
+                        <img src="../assets/img/services/regime1.jpg"
+                            alt="Analyse de régime alimentaire" loading="lazy">
+                        <img src="../assets/img/services/regime2.jpg"
+                            alt="Échantillons de fèces" loading="lazy">
+                        <img src="../assets/img/services/regime3.jpg"
+                            alt="Résultats d'analyse" loading="lazy">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Étude des problèmes d’hybridation -->
+            <div class="service-card">
+                <div class="service-header">
+                    <h2>Étude des problèmes d’hybridation</h2>
+                </div>
+                <div class="service-content">
+                    <p>
+
+                        Les marqueurs développés au sein de notre structure
+                        permettent d’étudier de manière précise les phénomènes
+                        d’hybridation existant entre espèces menacées et espèces
+                        domestique ou invasives.
+                    </p>
+
+                    <p>Les marqueurs développés au sein de notre structure
+                        permettent d’étudier de manière précise les phénomènes
+                        d’hybridation existant entre espèces menacées et espèces
+                        domestiques ou invasives.</p>
+                    <p>Notre expertise concerne particulièrement le phénomène
+                        d’hybridation entre le chat forestier européen et le
+                        chat domestique. Il concerne également l’hybridation
+                        entre le sanglier européen et le cochon domestique ou
+                        encore l’hybridation entre le vison Européen, espèce en
+                        danger critique d’extinction, et le putois européen.</p>
+                    <div class="image-grid">
+                        <img src="../assets/img/services/hybridation1.jpg"
+                            alt="Étude d'hybridation 1" loading="lazy">
+                        <img src="../assets/img/services/hybridation2.jpg"
+                            alt="Étude d'hybridation 2" loading="lazy">
+                        <img src="../assets/img/services/hybridation3.jpg"
+                            alt="Étude d'hybridation 3" loading="lazy">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Détermination d'effectifs et analyse de connectivité -->
+            <div class="service-card">
+                <div class="service-header">
+                    <h2>Détermination d'effectifs et analyse de
+                        connectivité</h2>
+                </div>
+                <div class="service-content">
+                    <p>Sur base de différents marqueurs génétiques
+                        hypervariables (microsatellites, marqueurs SNPs) et la
+                        collecte de très faibles quantités d’ADN, nous vous
+                        proposons d'évaluer la taille des effectifs de
+                        populations d'une espèce vertébrée ou invertébrée, en se
+                        basant uniquement sur des échantillons de poils, de
+                        fèces, d’urine, de salive ou de toute particule
+                        organique provenant de l’espèce ciblée.</p>
+
+                    <p>Sur base des mêmes marqueurs moléculaires et selon des
+                        approches de génétique des populations, nous pouvons
+                        également apporter des informations concernant la
+                        connectivité entre populations isolées, leur risque de
+                        consanguinité ou encore leur niveau de diversité
+                        génétique.</p>
+
+                    <p>Ce type d’analyse est particulièrement préconisé pour
+                        l’étude d’espèces rares ou élusives difficiles à
+                        échantillonner ou à observer. Notre expérience dans le
+                        domaine concerne de nombreuses espèces comme la loutre
+                        européenne, le loup européen, le desman des Pyrénées, le
+                        vison d’Europe, le cuivré de la bistorte, le hibou Grand
+                        Duc, le lion d’Afrique ou encore l’ours polaire.</p>
+
+                    <div class="image-grid">
+                        <img src="../assets/img/services/connectivite1.jpg"
+                            alt="Analyse de connectivité 1" loading="lazy">
+                        <img src="../assets/img/services/connectivite2.jpg"
+                            alt="Analyse de connectivité 2" loading="lazy">
+                        <img src="../assets/img/services/connectivite3.jpg"
+                            alt="Analyse de connectivité 3" loading="lazy">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6: Identification de pathogènes et étude de microbiomes bactériens -->
+            <div class="service-card">
+                <div class="service-header">
+                    <h2>Identification de pathogènes et étude de microbiomes
+                        bactériens</h2>
+                </div>
+                <div class="service-content">
+                    <p>L’expertise de notre équipe permet d'estimer de manière
+                        précise les microbiomes bactériens présents dans un
+                        environnement particulier ou encore au sein d’animaux
+                        appartenant à des espèces d’intérêt (ex. tiques,
+                        moustiques, rongeurs, chauves-souris…). Ces approches
+                        permettent de mettre en place de véritables screening
+                        des communautés bactériennes au sein des organismes ou
+                        environnements analysés.</p>
+
+                    <p>Ces analyses permettent également de détecter la présence
+                        potentielle d’agents pathogènes, avec une précision
+                        supérieure aux technologies classiques, grâce au
+                        développement de nouveaux marqueurs génétiques et
+                        l’utilisation systématique de technologies de séquençage
+                        de dernière génération.</p>
+
+                    <p>Ces approches, développées notamment avec l’Institut
+                        Pasteur ou encore l’Hôpital Universitaire de
+                        l’Université de Liège (Belgique), permettent
+                        l’identification de pathogènes tels que les bactéries
+                        Borrelia, responsables de la maladie de Lyme ou encore
+                        d’autres groupes de bactéries particulièrement dangereux
+                        pour l’homme (ex. genres Bartonella, Yersinia, Bacillus,
+                        Leptospira…).</p>
+
+                    <div class="image-grid">
+                        <img src="../assets/img/services/microbiome1.jpg"
+                            alt="Étude de microbiomes 1" loading="lazy">
+                        <img src="../assets/img/services/microbiome2.jpg"
+                            alt="Étude de microbiomes 2" loading="lazy">
+                        <img src="../assets/img/services/microbiome3.jpg"
+                            alt="Étude de microbiomes 3" loading="lazy">
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div class="nav-links">
-            <a href="../index.html" class="active">Accueil</a>
-            <a href="partenaire.html">Partenaires</a>
-            <a href="services.html">Services</a>
-            <a href="publications.html">Publications</a>
-            <a href="equipe.html">Équipe</a>
-            <a href="aPropos.html">À propos</a>
-            <a href="contact.html">Contact</a>
-        </div>
-    </nav>
-    <nav-bar></nav-bar>
 
-    <main>
-
-    </main>
-
-    <footer-bar></footer-bar>
-</body>
-
+        <footer-bar></footer-bar>
+    </body>
 </html>
